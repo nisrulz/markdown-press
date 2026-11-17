@@ -19,12 +19,16 @@ const emit = defineEmits(['close'])
       <p class="info-lead">Markdown to PDF, in your browser.</p>
 
       <ul class="info-list">
-        <li>Write or paste markdown, set the page format, then click Save PDF and choose
-          <strong>Save as PDF</strong>.</li>
-        <li>The app runs offline. There is no upload and no account.</li>
-        <li>The draft never leaves this tab. The app stores one flag, to remember this screen.</li>
-        <li>The PDF keeps selectable text and clickable links.</li>
-        <li>Use your browser menu to install the app and run it like a native app.</li>
+        <li>Type or paste markdown on the left. The page updates as you write.</li>
+        <li>Click <strong>Save PDF</strong>, then choose <strong>Save as PDF</strong>. The PDF keeps
+          selectable text and working links.</li>
+        <li>Settings holds the page size, margins, body font, text size, and a contents list for
+          long documents.</li>
+        <li>Tables, task lists, footnotes, and code blocks render as they should. Drop a .md file on
+          the page to open it.</li>
+        <li>The app runs offline. There is no upload and no account, and your draft stays in this
+          tab.</li>
+        <li>Install it from the browser menu, and it opens like a native app.</li>
       </ul>
 
       <button class="btn btn-primary info-start" type="button" @click="emit('close')">
