@@ -4,6 +4,8 @@ Markdown to PDF, in your browser.
 
 Write or paste markdown, set the page, export. No upload. No account. No draft storage.
 
+![Screenshot](img/social.jpg)
+
 ## Use it
 
 1. Open the page.
