@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
@@ -38,9 +39,32 @@ for (const file of sources) {
   check(`no storage call in ${name}`, !STORAGE_API.test(text))
 }
 
+// One inline script holds the whole bundle. The policy must list the hash of
+// that exact source, so an injected inline script does not run.
+function inlineScriptCodes(html) {
+  return [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)]
+    .filter(([, attrs]) => !/\bsrc=/.test(attrs))
+    .map(([, , code]) => code)
+}
+
+function inlineScriptsAreHashed(html, policy) {
+  const codes = inlineScriptCodes(html)
+  return codes.every((code) => {
+    const digest = createHash('sha256').update(code).digest('base64')
+    return policy.includes(`'sha256-${digest}'`)
+  })
+}
+
 const dist = readFileSync(join(root, 'dist/index.html'), 'utf8')
 
 check('the content security policy blocks the network', /connect-src 'none'/.test(dist))
+const policy = dist.match(/<meta http-equiv="Content-Security-Policy" content="([^"]*)"/)?.[1] ?? ''
+check('the content security policy exists', policy !== '')
+check(
+  'the content security policy comes before the first script',
+  dist.indexOf('Content-Security-Policy') < dist.search(/<script/i),
+)
+check("the script sources are hashed, not 'unsafe-inline'", inlineScriptsAreHashed(dist, policy))
 check(
   'the content security policy comes before the first script',
   dist.indexOf('Content-Security-Policy') < dist.search(/<script/i),
