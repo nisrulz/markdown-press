@@ -56,6 +56,6 @@ export default defineConfig({
   },
   test: {
     environment: 'happy-dom',
-    exclude: ['**/node_modules/**', '**/dist/**', '**/.trash/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/.trash/**', 'test/e2e/**'],
   },
 })

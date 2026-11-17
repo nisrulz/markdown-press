@@ -26,6 +26,7 @@ Open the URL that Vite prints.
 | `make preview` | Serve the built file on a local URL. |
 | `make offline` | Scan the sources and the bundle for a network or storage call. |
 | `make verify` | Test, build, then scan. |
+| `make e2e` | Build `dist/`, then run the browser tests. |
 | `make clean` | Move `dist/` and `coverage/` to `.trash/`. |
 
 `make verify` is the gate. Run it before you commit.
@@ -40,9 +41,12 @@ Open the URL that Vite prints.
 | `test/paginate.test.js` | Table and list split points, the header repeat, the ordered list renumber. |
 | `test/info-flag.test.js` | The one storage flag: unseen on a fresh tab, seen after the info screen. |
 | `test/app.test.js` | Boots the real app in a DOM and checks the wiring. |
+| `test/e2e/app.spec.js` | Boots the built app in Chromium. Checks the editor to preview flow, the settings, the CSP, and the one storage flag. |
 
 Add a test with the code. A behavior change needs a test that fails before the change. The suites
-run in `happy-dom`, so a test can build DOM nodes but cannot measure layout.
+run in `happy-dom`, so a test can build DOM nodes but cannot measure layout. The e2e suite runs the
+real build in a browser through Playwright. `make e2e` builds `dist/` first, so run it after a
+change, not instead of `make verify`.
 
 ## Manual print check
 

@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 NPM ?= npm
 
-.PHONY: help setup dev build preview test offline verify clean
+.PHONY: help setup dev build preview test offline verify e2e clean
 
 help: ## Show the available tasks
 	@cat scripts/banner.txt
@@ -30,6 +30,9 @@ offline: ## Scan the sources and the bundle for network calls
 
 verify: ## Test, build, then run the offline scan
 	$(NPM) run verify
+
+e2e: ## Run the browser end-to-end tests against dist/
+	$(NPM) run e2e
 
 clean: ## Move build output and coverage to .trash/
 	./scripts/clean.sh

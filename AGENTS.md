@@ -45,6 +45,7 @@ from the owner.
 | `make build` | Single-file build into `dist/`. |
 | `make offline` | Scan the sources and the bundle for a network or storage call. |
 | `make verify` | Test, build, then scan. This is the gate. |
+| `make e2e` | Build `dist/`, then run the browser tests. |
 | `make clean` | Move `dist/` and `coverage/` to `.trash/`. Never delete with `rm`. |
 
 ## Map
@@ -63,8 +64,9 @@ from the owner.
 | `src/scripts/info-flag.js` | The one localStorage flag for the info screen. |
 | `src/styles/app.css` | App chrome and dark mode. |
 | `src/styles/document.css` | The printed page. |
+| `playwright.config.js` | The Playwright e2e runner. |
 | `public/` | PWA assets: `manifest.webmanifest`, `sw.js`, `icons/`. |
-| `test/` | Vitest suites. `app.test.js` boots the whole app. |
+| `test/` | Vitest suites. `app.test.js` boots the whole app. `test/e2e/` runs the built app in Chromium. |
 | `docs/` | Architecture, printing, privacy, development. |
 | `.github/workflows/deploy.yml` | Test, build, deploy to GitHub Pages on `master` or `main`. |
 
