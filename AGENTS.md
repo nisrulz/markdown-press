@@ -65,7 +65,7 @@ from the owner.
 | `src/styles/app.css` | App chrome and dark mode. |
 | `src/styles/document.css` | The printed page. |
 | `playwright.config.js` | The Playwright e2e runner. |
-| `public/` | PWA assets: `manifest.webmanifest`, `sw.js`, `icons/`. |
+| `public/` | PWA assets: `manifest.webmanifest`, `sw.js`, `icons/`, and `social.jpg` for link previews. |
 | `test/` | Vitest suites. `app.test.js` boots the whole app. `test/e2e/` runs the built app in Chromium. |
 | `docs/` | Architecture, printing, privacy, development. |
 | `.github/workflows/deploy.yml` | Test, build, deploy to GitHub Pages on `master` or `main`. |

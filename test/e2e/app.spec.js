@@ -20,6 +20,16 @@ test('renders the preview from the editor', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 2, name: 'E2E check' })).toHaveCount(1)
 })
 
+test('ships social metadata with an image the site serves', async ({ page, request }) => {
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    /\/markdown-press\/social\.jpg$/,
+  )
+  const image = await request.get('/social.jpg')
+  expect(image.status()).toBe(200)
+  expect(image.headers()['content-type']).toContain('image/jpeg')
+})
+
 test('page size settings update the preview', async ({ page }) => {
   await page.click('#btn-settings')
   await page.selectOption('#opt-page', 'Letter')

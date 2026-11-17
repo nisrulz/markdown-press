@@ -30,6 +30,7 @@ the script and the CSS into `dist/index.html`. Same-origin PWA assets (`manifest
 | `src/styles/document.css` | The paper: page box, document typography, code theme. |
 | `public/sw.js` | Cache-first service worker for same-origin files. |
 | `public/manifest.webmanifest` | Install metadata and icons. |
+| `public/social.jpg` | The 1280x640 card that link previews show. `index.html` names it. |
 
 `markdown.js`, `settings.js`, and most of `preview.js` do not measure layout. A DOM test can drive
 them.
