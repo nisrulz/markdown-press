@@ -1,0 +1,345 @@
+:root {
+  --paper-bg: #fff;
+  --paper-ink: #17150f;
+  --paper-border: #e6e1d9;
+  --paper-muted: #8b857b;
+  --paper-line: #e2ddd4;
+  --paper-line-soft: #e8e3da;
+  --paper-heading: #45403a;
+  --paper-link: #1f4ba8;
+  --paper-quote-border: #ddd7cd;
+  --paper-quote-ink: #55504a;
+  --paper-code-bg: #f4f2ee;
+  --paper-code-border: #eae6df;
+  --paper-code-block: #f7f5f1;
+  --paper-footnotes: #4d4842;
+  --paper-toc-bg: #fbfaf8;
+  --paper-toc-title: #6b6560;
+  --code-comment: #8b857b;
+  --code-keyword: #8a3ab9;
+  --code-string: #1f6f43;
+  --code-number: #a15c1b;
+  --code-title: #1f4ba8;
+  --code-attribute: #8a4b1e;
+  --code-built-in: #0f6b7a;
+  --code-deletion: #a02b2b;
+}
+
+@media screen {
+  :root[data-theme='dark'] {
+    --paper-bg: #1c1b1f;
+    --paper-ink: #efedf0;
+    --paper-border: #3a383f;
+    --paper-muted: #a6a0a8;
+    --paper-line: #3a383f;
+    --paper-line-soft: #3a383f;
+    --paper-heading: #ded9e2;
+    --paper-link: #91baff;
+    --paper-quote-border: #4a4650;
+    --paper-quote-ink: #c8c1cb;
+    --paper-code-bg: #29272e;
+    --paper-code-border: #403c46;
+    --paper-code-block: #242229;
+    --paper-footnotes: #c3bdc7;
+    --paper-toc-bg: #242229;
+    --paper-toc-title: #b4aeb8;
+    --code-comment: #aaa4ac;
+    --code-keyword: #d6aaff;
+    --code-string: #8bd49c;
+    --code-number: #ffbe7d;
+    --code-title: #91baff;
+    --code-attribute: #ffb59d;
+    --code-built-in: #7dd3e1;
+    --code-deletion: #ff9797;
+  }
+}
+
+/* ---------- the page ---------- */
+
+.sheet {
+  position: relative;
+  width: var(--page-w);
+  min-height: var(--page-h);
+  padding: var(--page-pad);
+  background: var(--paper-bg);
+  color: var(--paper-ink);
+  border: 1px solid var(--paper-border);
+  border-radius: 2px;
+  box-shadow: var(--shadow);
+  font-family: var(--doc-font);
+  font-size: var(--doc-size);
+  line-height: var(--doc-line);
+  overflow-wrap: break-word;
+}
+
+.sheet.is-empty {
+  color: var(--paper-muted);
+  font-family: var(--ui-font);
+  font-size: 13px;
+}
+
+/* ---------- document typography ---------- */
+
+.sheet > :first-child {
+  margin-top: 0;
+}
+
+.sheet h1,
+.sheet h2,
+.sheet h3,
+.sheet h4 {
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 1.55em 0 0.5em;
+}
+
+.sheet h1 {
+  font-size: 1.95em;
+  margin-bottom: 0.7em;
+}
+
+.sheet h2 {
+  font-size: 1.38em;
+  padding-bottom: 0.22em;
+  border-bottom: 1px solid var(--paper-line-soft);
+}
+
+.sheet h3 {
+  font-size: 1.14em;
+}
+
+.sheet h4 {
+  font-size: 1em;
+  color: var(--paper-heading);
+}
+
+.sheet p {
+  margin: 0 0 0.85em;
+}
+
+.sheet a {
+  color: var(--paper-link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.12em;
+}
+
+.sheet strong {
+  font-weight: 650;
+}
+
+.sheet ul,
+.sheet ol {
+  margin: 0 0 0.9em;
+  padding-left: 1.5em;
+}
+
+.sheet li {
+  margin: 0.22em 0;
+}
+
+.sheet li > p {
+  margin: 0;
+}
+
+.sheet ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.1em;
+}
+
+.sheet .task-list-item {
+  display: block;
+  padding-left: 1.6em;
+  text-indent: -1.6em;
+}
+
+.sheet .task-list-item input {
+  margin: 0 0.55em 0 0.1em;
+  vertical-align: 0.02em;
+}
+
+.sheet blockquote {
+  margin: 1.1em 0;
+  padding: 0.1em 0 0.1em 1em;
+  border-left: 3px solid var(--paper-quote-border);
+  color: var(--paper-quote-ink);
+}
+
+.sheet blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.sheet code {
+  font-family: var(--mono-font);
+  font-size: 0.86em;
+  background: var(--paper-code-bg);
+  padding: 0.12em 0.32em;
+  border-radius: 3px;
+  border: 1px solid var(--paper-code-border);
+}
+
+.sheet pre {
+  margin: 0 0 1.1em;
+  padding: 12px 14px;
+  background: var(--paper-code-block);
+  border: 1px solid var(--paper-code-border);
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+
+.sheet pre code {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1em;
+  white-space: pre;
+}
+
+.sheet table {
+  width: 100%;
+  margin: 0 0 1.2em;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+.sheet th,
+.sheet td {
+  padding: 6px 10px;
+  border: 1px solid var(--paper-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.sheet th {
+  background: var(--paper-code-block);
+  font-weight: 650;
+}
+
+.sheet img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sheet hr {
+  margin: 1.8em 0;
+  border: 0;
+  border-top: 1px solid var(--paper-line);
+}
+
+.sheet .footnotes {
+  margin-top: 2.4em;
+  padding-top: 0.9em;
+  border-top: 1px solid var(--paper-line);
+  font-size: 0.86em;
+  color: var(--paper-footnotes);
+}
+
+.sheet .footnotes-sep {
+  display: none;
+}
+
+.sheet sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.sheet .footnote-backref {
+  text-decoration: none;
+}
+
+.sheet .footnotes ol {
+  padding-left: 1.2em;
+}
+
+.sheet .toc {
+  margin: 0 0 2em;
+  padding: 0.9em 1.1em;
+  border: 1px solid var(--paper-line);
+  border-radius: 6px;
+  background: var(--paper-toc-bg);
+  break-inside: avoid;
+}
+
+.sheet .toc + h1 {
+  margin-top: 0.2em;
+}
+
+.sheet .toc-title {
+  margin: 0 0 0.5em;
+  padding: 0;
+  border: 0;
+  font-size: 0.82em;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-toc-title);
+}
+
+.sheet .toc ol {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 0.94em;
+}
+
+.sheet .toc a {
+  color: var(--paper-ink);
+  text-decoration: none;
+}
+
+.sheet .toc .toc-h3 {
+  margin-left: 1em;
+  font-size: 0.96em;
+  color: var(--paper-footnotes);
+}
+
+/* code highlighting */
+.sheet .hljs-comment,
+.sheet .hljs-quote {
+  color: var(--code-comment);
+  font-style: italic;
+}
+
+.sheet .hljs-keyword,
+.sheet .hljs-selector-tag,
+.sheet .hljs-literal,
+.sheet .hljs-type {
+  color: var(--code-keyword);
+}
+
+.sheet .hljs-string,
+.sheet .hljs-regexp,
+.sheet .hljs-addition {
+  color: var(--code-string);
+}
+
+.sheet .hljs-number,
+.sheet .hljs-symbol,
+.sheet .hljs-bullet {
+  color: var(--code-number);
+}
+
+.sheet .hljs-title,
+.sheet .hljs-section,
+.sheet .hljs-name {
+  color: var(--code-title);
+}
+
+.sheet .hljs-attr,
+.sheet .hljs-attribute,
+.sheet .hljs-variable,
+.sheet .hljs-template-variable {
+  color: var(--code-attribute);
+}
+
+.sheet .hljs-built_in,
+.sheet .hljs-class .hljs-title {
+  color: var(--code-built-in);
+}
+
+.sheet .hljs-meta,
+.sheet .hljs-deletion {
+  color: var(--code-deletion);
+}
