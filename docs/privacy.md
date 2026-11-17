@@ -27,7 +27,7 @@ The build adds this policy to `dist/index.html`:
 
 ```
 default-src 'none';
-script-src 'self' 'unsafe-inline';
+script-src 'self' 'sha256-…';
 style-src 'self' 'unsafe-inline';
 img-src 'self' data: blob: file:;
 font-src 'self' data:;
@@ -37,6 +37,11 @@ connect-src 'none';
 base-uri 'none';
 form-action 'none'
 ```
+
+`script-src` carries the hash of the one inline bundle. The build computes the hash after it inlines
+the script, and the browser runs only a script with that exact source. An injected inline script
+does not run. `style-src` keeps `'unsafe-inline'`, because the print code writes style elements at
+run time, and a hash cannot cover a value the page writes later.
 
 `connect-src 'none'` is the important line. The browser refuses `fetch`, `XMLHttpRequest`,
 `WebSocket`, `EventSource`, and `navigator.sendBeacon` before the request starts.
@@ -57,17 +62,24 @@ image request.
 The policy sits in a `<meta>` tag at the start of `<head>`, before the first script. A policy that
 arrives after the script does not cover it. `npm run check:offline` checks this order.
 
+GitHub Pages cannot send a frame header, and a meta policy cannot carry `frame-ancestors`. The app
+therefore leaves a frame at load: if the page runs inside someone else's frame, it moves itself to
+the top window. An overlay site cannot fake the print and replace actions. A sandboxed frame denies
+the move, and the app runs inside it.
+
 ### Static scan
 
 `scripts/check-offline.mjs` reads every file under `src/`, plus `index.html`, plus the built bundle.
 It fails on:
 
-- `fetch(`, `XMLHttpRequest`, `WebSocket`, `EventSource`, `sendBeacon(`
+- `fetch(`, `XMLHttpRequest`, `WebSocket`, `EventSource`, or `sendBeacon(` as a call; in `src/`,
+  also the bare word, so an alias cannot hide a call
 - `sessionStorage`, `indexedDB`, or `document.cookie`; `localStorage` outside the one approved
-  `getItem`, `setItem`, `removeItem` call for the info flag
+  `getItem`, `setItem`, `removeItem` call for the info flag, including bracket access
 - an external `<script src>` or `<link rel="stylesheet">`
 - a remote resource `src` or a remote `<link href>`
-- a missing CSP, or a CSP that comes after the first script
+- a missing CSP, a CSP that comes after the first script, or an inline script whose source the
+  policy does not hash
 
 The scan allows external anchors. A click opens the destination. It does not attach the draft.
 
