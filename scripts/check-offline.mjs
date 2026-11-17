@@ -5,9 +5,14 @@ const root = resolve(process.cwd())
 const failures = []
 
 const NETWORK_API = /\b(fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\s*\(/
+// Library code in the bundle can name an API without a call, so the bare-token
+// check applies to the app sources only.
+const NETWORK_API_SRC = /\b(fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\b/
 // localStorage holds one flag only: that the info screen was shown. The draft
-// never reaches storage. Any other storage API or cookie access is a failure.
-const STORAGE_API = /\b(sessionStorage|indexedDB)\s*[.[]|document\.cookie\s*[=;]|localStorage\s*\.\s*(?!(get|set|remove)Item)/
+// never reaches storage. Any other storage API, cookie access, or bracket
+// access to localStorage is a failure.
+const STORAGE_API =
+  /\b(sessionStorage|indexedDB)\s*[.[]|document\.cookie|localStorage\s*(\.(?!(get|set|remove)Item)|\[)/
 
 function check(name, ok, detail = '') {
   if (!ok) failures.push(detail ? `${name} (${detail})` : name)
@@ -29,6 +34,7 @@ for (const file of sources) {
   const text = readFileSync(file, 'utf8')
   const name = file.replace(`${root}/`, '')
   check(`no network call in ${name}`, !NETWORK_API.test(text))
+  check(`no network API in ${name}`, !NETWORK_API_SRC.test(text))
   check(`no storage call in ${name}`, !STORAGE_API.test(text))
 }
 
