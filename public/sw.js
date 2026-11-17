@@ -33,7 +33,8 @@ self.addEventListener('fetch', (event) => {
       const cached = await cache.match(request)
       const network = fetch(request)
         .then((response) => {
-          cache.put(request, response.clone())
+          // An error page would poison the cache and come back offline.
+          if (response.ok) cache.put(request, response.clone())
           return response
         })
         .catch(() => cached)
