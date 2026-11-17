@@ -74,6 +74,9 @@ describe('app wiring', () => {
     expect(overlay).not.toBeNull()
     expect(overlay.textContent).toContain('Markdown Press')
     expect(localStorage.getItem('markdown-press.info-seen')).toBe('1')
+    expect(overlay.querySelector('.info-meta a[href="https://github.com/nisrulz/markdown-press"]'))
+      .not.toBeNull()
+    expect(overlay.querySelector('.info-meta')?.textContent).toContain('Apache 2.0')
 
     overlay.querySelector('.info-start').click()
     await nextTick()

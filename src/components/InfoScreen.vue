@@ -30,6 +30,15 @@ const emit = defineEmits(['close'])
       <button class="btn btn-primary info-start" type="button" @click="emit('close')">
         Start writing
       </button>
+
+      <p class="info-meta">
+        <a href="https://github.com/nisrulz/markdown-press" target="_blank" rel="noopener noreferrer">
+          Source on GitHub
+        </a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://github.com/nisrulz/markdown-press/blob/main/LICENSE" target="_blank"
+          rel="noopener noreferrer">Apache 2.0 license</a>
+      </p>
     </section>
   </div>
 </template>

@@ -394,6 +394,23 @@ textarea {
   justify-content: center;
 }
 
+.info-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
+.info-meta a {
+  color: var(--accent-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---------- workspace ---------- */
 
 .workspace {
